@@ -138,9 +138,5 @@ public class PredicateTest {
 
 		assertFalse(actual);
 	}
-	
-
-	
-	
 
 }

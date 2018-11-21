@@ -133,7 +133,7 @@ public class OptionalTest {
 	 *********************************************************/
 
 	@Test
-	public void retrivingWithOrElseGet_GivinNoNull() {
+	public void retrivingWithOrElseGet_GivenNoNull() {
 
 		Optional<String> optional = Optional.ofNullable("Naren");
 
@@ -144,7 +144,7 @@ public class OptionalTest {
 	}
 
 	@Test
-	public void retrivingWithOrElseGet_GivinNull() {
+	public void retrivingWithOrElseGet_GivenNull() {
 
 		Optional<String> optional = Optional.ofNullable(null);
 
@@ -160,7 +160,7 @@ public class OptionalTest {
 	 *********************************************************/
 
 	@Test
-	public void retrivingWithOrElseThrow_GivinNoNull() {
+	public void retrivingWithOrElseThrow_GivenNoNull() {
 
 		Optional<Integer> optional = Optional.ofNullable(10);
 
