@@ -13,6 +13,7 @@ import java.util.stream.Stream;
 import org.junit.Test;
 
 import com.vamosaprogramar.entity.Person;
+import com.vamosaprogramar.entity.Pet;
 
 public class StreamTest {
 
@@ -41,7 +42,8 @@ public class StreamTest {
 	}
 
 	/**********************************************************
-	 * Transforming a regular object stream to a primitive stream [Testing]
+	 * Transforming a regular object stream to a primitive 
+	 * stream [Testing]
 	 * 
 	 *********************************************************/
 
@@ -176,6 +178,48 @@ public class StreamTest {
 		double actual = persons.stream().collect(Collectors.averagingDouble(x -> x.getAge().orElse(0)));
 
 		assertEquals(24, actual, 0.0);
+	}
+
+	/**********************************************************
+	 * FlatMap Streams [Testing]
+	 * 
+	 *********************************************************/
+
+	@Test
+	public void flatMapStream() {
+
+		List<Person> persons = new ArrayList<>();
+
+		IntStream.range(1, 3).forEach(x -> persons.add(new Person("Person #" + x, x)));
+
+		persons.forEach(p -> IntStream.range(1, 3)
+				.forEach(x -> p.getPets().get().add(new Pet("Pet #" + x + "<-" + p.getName().get()))));
+
+		List<String> actual = persons.stream().flatMap(x -> x.getPets().get().stream()).map(y -> y.getName().get())
+				.collect(Collectors.toList());
+
+		assertEquals(Arrays.asList("Pet #1<-Person #1", "Pet #2<-Person #1", "Pet #1<-Person #2", "Pet #2<-Person #2"),
+				actual);
+
+	}
+
+	/**********************************************************
+	 * Reduce Streams [Testing]
+	 * 
+	 *********************************************************/
+
+	@Test
+	public void reduceStream() {
+
+		List<Person> persons = new ArrayList<>();
+
+		IntStream.range(1, 3).forEach(x -> persons.add(new Person("Person #" + x, x)));
+
+		Integer actual = persons.stream().reduce(0, (sum, p) -> sum += p.getAge().orElse(0),
+				(sum1, sum2) -> sum1 + sum2);
+
+		assertEquals(3, actual, 0.0);
+
 	}
 
 }
